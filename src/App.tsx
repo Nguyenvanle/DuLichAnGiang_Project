@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <>
+      <meta name="viewport" content="initial-scale=1, width=device-width" />
       <Header />
       <main>
         <Home />
