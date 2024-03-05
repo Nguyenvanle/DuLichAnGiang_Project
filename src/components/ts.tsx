@@ -1,91 +1,184 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import {
-  Email,
-  Phone,
-  Facebook,
-  Instagram,
-  Twitter,
-  LinkedIn,
-} from "@mui/icons-material";
+import HikingIcon from "@mui/icons-material/Hiking";
+import SearchBar from "./SearchBar";
 
-const Header = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+const pages = ["Home", "Booking", "Guides", "Destinations", "FAQ"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+function ResponsiveAppBar() {
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
+
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   return (
-    <Box>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <Typography variant="h6">dulichangiang@gmail.com</Typography>
-          <Email />
-          <Typography variant="h6">010-020-0340</Typography>
-          <Phone />
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit">
-            <Facebook />
-          </IconButton>
-          <IconButton color="inherit">
-            <Instagram />
-          </IconButton>
-          <IconButton color="inherit">
-            <Twitter />
-          </IconButton>
-          <IconButton color="inherit">
-            <LinkedIn />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Du Lịch An Giang
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <HikingIcon
+            fontSize="large"
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+          />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              display: { xs: "none", md: "flex" },
+              fontFamily: "sans-serif",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            AGTRAVEL
           </Typography>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button color="inherit" onClick={handleClick}>
-            Dịch Vụ
-          </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={open}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Đặt vé</MenuItem>
-            <MenuItem onClick={handleClose}>Cẩm nang</MenuItem>
-            <MenuItem onClick={handleClose}>Địa điểm</MenuItem>
-            <MenuItem onClick={handleClose}>Liên hệ</MenuItem>
-          </Menu>
-          <Button color="inherit">Trang Chủ</Button>
-          <Button color="inherit">Giới Thiệu</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
-};
 
-export default Header;
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <HikingIcon
+            sx={{ display: { xs: "flex", md: "none" } }}
+            fontSize="large"
+          />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            AGTRAVEL
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
+
+          <SearchBar />
+
+          {/* <Box sx={{ flexGrow: 0, mx: 1 }}>
+            <Button color="inherit" variant="text">
+              Signin
+            </Button>
+            <Button color="inherit" variant="text">
+              Login
+            </Button>
+          </Box> */}
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
+export default ResponsiveAppBar;

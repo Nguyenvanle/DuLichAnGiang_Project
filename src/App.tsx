@@ -5,6 +5,7 @@ import Guides from "./pages/Guides";
 import Destinations from "./pages/Destinations";
 import FAQ from "./pages/FAQ";
 import Footer from "./components/Footer";
+import ResponsiveAppBar from "./components/ts";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <FAQ />
       </main>
       <Footer />
+      <ResponsiveAppBar></ResponsiveAppBar>
     </>
   );
 }
