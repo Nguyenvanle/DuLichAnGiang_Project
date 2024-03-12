@@ -11,11 +11,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import HikingIcon from "@mui/icons-material/Hiking";
 import SearchBar from "./SearchBar";
+import { Logo } from "./logo/Logo";
+import { FlexLogo } from "./logo/FlexLogo";
+import FlexSearchBar from "./FlexSearchBar";
 
 const pages = ["Home", "Booking", "Guides", "Destinations", "FAQ"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Signin", "Login", "Setting"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -44,27 +46,9 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <HikingIcon
-            fontSize="large"
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-          />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              display: { xs: "none", md: "flex" },
-              fontFamily: "sans-serif",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            AGTRAVEL
-          </Typography>
+          <Logo></Logo>
 
+          {/* Left Side Menu */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -101,29 +85,11 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <HikingIcon
-            sx={{ display: { xs: "flex", md: "none" } }}
-            fontSize="large"
-          />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            AGTRAVEL
-          </Typography>
 
+          {/* Response Logo */}
+          <FlexLogo></FlexLogo>
+
+          {/* Right Side Menu - Handler*/}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -148,12 +114,14 @@ function ResponsiveAppBar() {
           </Box> */}
 
           <Box sx={{ flexGrow: 0 }}>
+            {/* Avatar Menu */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
+              disableAutoFocus={true}
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -174,6 +142,7 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              <FlexSearchBar></FlexSearchBar>
             </Menu>
           </Box>
         </Toolbar>
