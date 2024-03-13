@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="bg-milk">
       <Header />
       <main>
         <Home />
@@ -18,7 +18,7 @@ function App() {
         <FAQ />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 
